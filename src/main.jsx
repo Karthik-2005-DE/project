@@ -4,6 +4,10 @@ import './index.css'
 import NavBar from './components/NavBar.jsx'
 import App from './App.jsx'
 import Login from './pages/Login.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import prouduct from './data/ProductData.js'
+
 import {
   createBrowserRouter,
   RouterProvider,

@@ -137,20 +137,21 @@ const Login = () => {
           {errors.termsAndConditions && (
             <p className="text-red-500 text-sm">{errors.termsAndConditions}</p>
           )}
+          <div className="">
+            <button
+              type="submit" 
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-lg font-semibold transition"
+            >
+              Submit
+            </button>
 
-          <button
-            type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-lg font-semibold transition"
-          >
-            Submit
-          </button>
-
-          <button
-            type="reset"
-            className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 p-3 rounded-lg transition"
-          >
-            Reset
-          </button>
+            <br /> <button
+              type="reset"
+              className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 p-3 rounded-lg transition"
+            >
+              Reset
+            </button>
+          </div>
         </form>
       </div>
     </div>
