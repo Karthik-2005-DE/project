@@ -3,12 +3,11 @@ import { login } from "../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
-const Login = () => {
-  const navigate = useNavigate();
+const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    name: "",
     email: "",
     password: "",
     cfpassword: "",
@@ -33,7 +32,6 @@ const Login = () => {
 
     const formErrors = {};
 
-    if (form.name.trim() === "") formErrors.name = "Name is required";
     if (!isValidEmail(form.email)) formErrors.email = "Invalid email format";
     if (form.password.length < 6)
       formErrors.password = "Password must be at least 6 characters";
@@ -49,16 +47,15 @@ const Login = () => {
       return;
     }
 
-    setSuccess("🎉 Login successful!");
+    setSuccess("🎉 Account created successfully!");
+
     dispatch(login());
 
     setTimeout(() => {
       navigate("/product");
     }, 150);
 
-    // reset
     setForm({
-      name: "",
       email: "",
       password: "",
       cfpassword: "",
@@ -67,11 +64,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-3 pb-0.1">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-3">
       <div className="bg-white shadow-xl rounded-xl p-6 w-full max-w-sm">
-        
+
         <h2 className="text-2xl sm:text-3xl font-bold text-center text-orange-500 mb-4">
-          Login
+          Sign Up
         </h2>
 
         {success && (
@@ -81,20 +78,6 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
-          <div>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={form.name}
-              onChange={update}
-              className="w-full p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-400"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name}</p>
-            )}
-          </div>
 
           <div>
             <input
@@ -146,9 +129,7 @@ const Login = () => {
               onChange={update}
               className="h-4 w-4"
             />
-            <label className="text-gray-700 text-sm">
-              I accept the Terms
-            </label>
+            <label className="text-gray-700 text-sm">I accept the Terms</label>
           </div>
 
           {errors.termsAndConditions && (
@@ -159,7 +140,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-lg font-semibold transition"
           >
-            Login
+            Submit
           </button>
 
           <button
@@ -170,19 +151,19 @@ const Login = () => {
           </button>
 
           <p className="mt-3 text-center text-sm">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <Link
-              to="/signup"
+              to="/login"
               className="text-amber-500 underline hover:text-blue-600"
             >
-              Signup
+              Login
             </Link>
           </p>
-        </form>
 
+        </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default SignUp;

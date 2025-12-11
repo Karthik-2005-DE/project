@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -6,20 +8,46 @@ import {
   increaseQuantity,
   decreaseQuantity,
 } from "../features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 
-function CartPage() {
+export default function CartPage() {
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+const handlePurchase = () => {
+  if (!isLoggedIn) {
+    navigate("/login");
+    return;
+  }
 
-  const handlePurchase = () => {
-    alert("Product purchased successfully!");
-    dispatch(clearCart());
+  // Create new order
+  const newOrder = {
+    id: Date.now(),
+    items: cartItems,
+    total: totalAmount,
+    date: new Date().toLocaleString(),
   };
+
+  // Get all orders from localStorage
+  const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  // Add new order to array
+  existingOrders.push(newOrder);
+
+  // Save back to localStorage
+  localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+  dispatch(clearCart());
+
+  // Redirect to order history page
+  navigate("/orders");
+};
+
 
   return (
     <div className="p-6 sm:p-12">
-
-      <h1 className="text-3xl font-display font-bold mb-8 text-center">
+      <h1 className="text-3xl font-display font-bold mb-8 text-center p-10">
         Your Cart
       </h1>
 
@@ -95,5 +123,3 @@ function CartPage() {
     </div>
   );
 }
-
-export default CartPage;
